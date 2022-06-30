@@ -12,7 +12,6 @@ import { Document } from "mongoose";
 const cleanBalances = (balances: Balance[]) => {
   return balances.map((b) => {
     if (b.type !== TokenType.Erc1155) {
-      delete (b as Erc1155Balance).tokenIds;
       delete (b as Erc1155Balance).values;
     }
     if (b.type !== TokenType.Erc721) {
