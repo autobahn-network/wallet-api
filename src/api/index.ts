@@ -6,6 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/holders/:address", getBalances);
+app.get("/balances/:address", getBalances);
 
 app.listen(process.env.PORT || 1338, () => {});
