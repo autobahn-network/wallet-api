@@ -42,5 +42,37 @@ If an address has a balance of an ERC-20 token, an example response would be:
 If an address has a balance of an ERC-721 token, example response would be:
 
 ```json
+{
+  "address": "0x5bCc4FC255CaE72F23bbD314F3721f982bfE0d74",
+  "balances": [
+    {
+      "holder": "0x5bCc4FC255CaE72F23bbD314F3721f982bfE0d74",
+      "contract": "0xE149507dca37F12144a02Fe376C486B237d3920A",
+      "name": "NFT",
+      "symbol": "NFT",
+      "tokenIds": ["0"],
+      "type": "erc721"
+    }
+  ]
+}
+```
 
+#### ERC-1155 example
+
+If an address has a balance of an ERC-1155 token, example response would be:
+
+```json
+{
+  "address": "0x5bCc4FC255CaE72F23bbD314F3721f982bfE0d74",
+  "balances": [
+    {
+      "holder": "0x5bCc4FC255CaE72F23bbD314F3721f982bfE0d74",
+      "contract": "0xbDAdDCeAc629a101008cD596c0f6D95F1A37e47A",
+      "name": "NFT1155",
+      "symbol": "NFT1155",
+      "values": ["5", "1", "10"],
+      "type": "erc1155"
+    }
+  ]
+}
 ```
