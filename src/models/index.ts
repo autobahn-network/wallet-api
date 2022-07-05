@@ -1,4 +1,5 @@
 import {
+  AnyBalance,
   Balance,
   BalanceModel,
   Erc20Balance,
@@ -10,6 +11,7 @@ import { Token, TokenModel } from "./Token";
 import { TransferModel } from "./Transfer";
 
 export {
+  AnyBalance,
   Balance,
   BalanceModel,
   Erc20Balance,

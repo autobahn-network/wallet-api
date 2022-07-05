@@ -22,22 +22,23 @@ export interface Erc1155Balance extends Erc721Balance {
   values: string[];
 }
 
-const balanceSchema = new Schema<Erc721Balance | Erc1155Balance | Erc20Balance>(
-  {
-    holder: { type: String, required: true },
-    contract: { type: String, required: true },
-    name: { type: String },
-    symbol: { type: String },
-    decimals: { type: Number },
-    value: { type: String },
-    tokenIds: { type: [String] },
-    values: { type: [String] },
-    type: { type: String, required: true, enum: Object.values(TokenType) },
-  }
-);
+export type AnyBalance = Balance &
+  Erc20Balance &
+  Erc721Balance &
+  Erc1155Balance;
+
+const balanceSchema = new Schema<AnyBalance>({
+  holder: { type: String, required: true },
+  contract: { type: String, required: true },
+  name: { type: String },
+  symbol: { type: String },
+  decimals: { type: Number },
+  value: { type: String },
+  tokenIds: { type: [String] },
+  values: { type: [String] },
+  type: { type: String, required: true, enum: Object.values(TokenType) },
+});
 
 balanceSchema.index({ holder: 1, contract: 1 }, { unique: true, sparse: true });
 
-export const BalanceModel = model<
-  Erc721Balance | Erc1155Balance | Erc20Balance
->("Balance", balanceSchema);
+export const BalanceModel = model<AnyBalance>("Balance", balanceSchema);

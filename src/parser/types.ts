@@ -1,5 +1,4 @@
 import { TokenType } from "../constants";
-import mongoose from "mongoose";
 
 export interface TokenInfo {
   decimals?: number;
@@ -36,3 +35,9 @@ export interface Erc1155TransferBatch extends Transfer {
   tokenIds: string[];
   values: string[];
 }
+
+export type AnyTransfer = Transfer &
+  Erc20Transfer &
+  Erc721Transfer &
+  Erc1155TransferSingle &
+  Erc1155TransferBatch;

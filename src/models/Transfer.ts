@@ -1,16 +1,8 @@
 import { model, Schema } from "mongoose";
-import {
-  Transfer,
-  Erc20Transfer,
-  Erc721Transfer,
-  Erc1155TransferBatch,
-  Erc1155TransferSingle,
-} from "../parser/types";
+import { AnyTransfer } from "../parser/types";
 import { TokenType } from "../constants";
 
-const transferSchema = new Schema<
-  Erc20Transfer | Erc721Transfer | Erc1155TransferBatch | Erc1155TransferSingle
->({
+const transferSchema = new Schema<AnyTransfer>({
   eventName: { type: String, required: true },
   contract: { type: String, required: true },
   type: { type: String, required: true, enum: Object.values(TokenType) },
@@ -26,6 +18,4 @@ const transferSchema = new Schema<
   processed: { type: Boolean, required: true, default: false },
 });
 
-export const TransferModel = model<
-  Erc20Transfer | Erc721Transfer | Erc1155TransferBatch | Erc1155TransferSingle
->("Transfer", transferSchema);
+export const TransferModel = model<AnyTransfer>("Transfer", transferSchema);

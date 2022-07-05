@@ -1,8 +1,12 @@
 import { ethers } from "ethers";
 import {
   erc1155 as erc1155abi,
+  ERC1155_TRANSFER_BATCH_NAME,
+  ERC1155_TRANSFER_SINGLE_NAME,
   erc20 as erc20abi,
+  ERC20_TRANSFER_NAME,
   erc721 as erc721abi,
+  ERC721_TRANSFER_NAME,
 } from "../abis";
 import { Transfer } from "./types";
 import { Token, TokenModel } from "../models";
@@ -59,7 +63,12 @@ const fetchTokenInfo = async (
   };
 };
 
-const supportedEvents = ["Transfer", "TransferSingle", "TransferBatch"];
+const supportedEvents = [
+  ERC20_TRANSFER_NAME,
+  ERC721_TRANSFER_NAME,
+  ERC1155_TRANSFER_SINGLE_NAME,
+  ERC1155_TRANSFER_BATCH_NAME,
+];
 
 const parseLog = (abi, log) => {
   try {
@@ -132,13 +141,13 @@ export const parse = async (
           });
           break;
         case TokenType.Erc1155:
-          if (parsed.name === "TransferSingle") {
+          if (parsed.name === ERC1155_TRANSFER_SINGLE_NAME) {
             transfers.push({
               ...transferData,
               tokenId: parsed.args.id,
               value: parsed.args.value,
             });
-          } else {
+          } else if (parsed.name === ERC1155_TRANSFER_BATCH_NAME) {
             transfers.push({
               ...transferData,
               tokenIds: parsed.args[3],
